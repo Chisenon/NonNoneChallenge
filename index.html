@@ -1,12 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST</title>
+    <title>〇〇のん</title>
+    <style>
+        body {
+            background-color: #4dbbff;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 24px 36px;
+            background-color: #ffffff;
+            color: #4dbbff;
+            font-size: 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #dcdcdc;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Sample</h1>
+    <div class="container">
+        <h1>〇〇のん</h1>
+        <p>ランダムな平仮名２文字 + のん が10個生成されます！</p>
+        <button class="button" onclick="generateAndPostTweet()">ついーのんする</button>
+        <p><br>セフィラちゃんはいいぞ！</p>
+
+    </div>
+
+    <script>
+        // クリック処理
+        function generateAndPostTweet() {
+
+            function RunNonCode() {
+                var hiragana = ['あ', 'い', 'う', 'え', 'お',
+                    'か', 'き', 'く', 'け', 'こ',
+                    'さ', 'し', 'す', 'せ', 'そ',
+                    'た', 'ち', 'つ', 'て', 'と',
+                    'な', 'に', 'ぬ', 'ね', 'の',
+                    'は', 'ひ', 'ふ', 'へ', 'ほ',
+                    'ま', 'み', 'む', 'め', 'も',
+                    'や', 'ゆ', 'よ',
+                    'ら', 'り', 'る', 'れ', 'ろ',
+                    'わ', 'を', 'ん'];
+
+                var specified_strings = ["おは", "ちせ", "せれ", "きせ"];
+
+                var results = [];
+
+                results.push("〇〇のんチャレンジ！\n")
+
+                for (var i = 0; i < 10; i++) {
+
+                    var random_hiragana = getRandomElements(hiragana, 2);
+
+                    var output = random_hiragana.join('');
+
+                    output += "のん";
+
+                    if (specified_strings.includes(output.substr(0, 2))) {
+                        output += "（ の～ん ）";
+                    }
+
+                    results.push(output);
+                }
+
+                return results;
+            }
+
+            function generateAndPostTweet() {
+                var results = RunNonCode();
+
+
+                var tweetURL = "https://twitter.com/intent/tweet?text=";
+
+                var tweetText = results.join('\n');
+
+                window.open(tweetURL + encodeURIComponent(tweetText + '\n\n' + "Change_To_Your_Link"), "_blank");
+            }
+
+            function getRandomElements(arr, num) {
+                var shuffled = arr.slice();
+                var i = arr.length;
+                var min = i - num;
+                var temp;
+                var index;
+
+                while (i-- > min) {
+                    index = Math.floor((i + 1) * Math.random());
+                    temp = shuffled[index];
+                    shuffled[index] = shuffled[i];
+                    shuffled[i] = temp;
+                }
+
+                return shuffled.slice(min);
+            }
+
+            generateAndPostTweet();
+        }
+    </script>
+
 </body>
+
+
 </html>
