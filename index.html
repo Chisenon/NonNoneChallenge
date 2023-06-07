@@ -70,78 +70,58 @@
     </div>
 
     <script>
-        // クリック処理
         function generateAndPostTweet() {
+            var hiragana = ['あ', 'い', 'う', 'え', 'お',
+                            'か', 'き', 'く', 'け', 'こ',
+                            'さ', 'し', 'す', 'せ', 'そ',
+                            'た', 'ち', 'つ', 'て', 'と',
+                            'な', 'に', 'ぬ', 'ね', 'の',
+                            'は', 'ひ', 'ふ', 'へ', 'ほ',
+                            'ま', 'み', 'む', 'め', 'も',
+                            'や', 'ゆ', 'よ',
+                            'ら', 'り', 'る', 'れ', 'ろ',
+                            'わ', 'を', 'ん'
+            ];
 
-            function RunNonCode() {
-                var hiragana = ['あ', 'い', 'う', 'え', 'お',
-                                'か', 'き', 'く', 'け', 'こ',
-                                'さ', 'し', 'す', 'せ', 'そ',
-                                'た', 'ち', 'つ', 'て', 'と',
-                                'な', 'に', 'ぬ', 'ね', 'の',
-                                'は', 'ひ', 'ふ', 'へ', 'ほ',
-                                'ま', 'み', 'む', 'め', 'も',
-                                'や', 'ゆ', 'よ',
-                                'ら', 'り', 'る', 'れ', 'ろ',
-                                'わ', 'を', 'ん'];
+            var specified_strings = ["おは", "ちせ", "せれ", "きせ"];
 
-                var specified_strings = ["おは", "ちせ", "せれ", "きせ"];
+            var results = [];
+            results.push("のんのんチャレンジ！\n");
 
-                var results = [];
+            for (var i = 0; i < 10; i++) {
+                var random_hiragana = getRandomElements(hiragana, 2);
+                var output = random_hiragana.join('') + "のん";
 
-                results.push("のんのんチャレンジ！\n")
-
-                for (var i = 0; i < 10; i++) {
-
-                    var random_hiragana = getRandomElements(hiragana, 2);
-
-                    var output = random_hiragana.join('');
-
-                    output += "のん";
-
-                    if (specified_strings.includes(output.substr(0, 2))) {
-                        output += "（ の～ん ）";
-                    }
-
-                    results.push(output);
+                if (specified_strings.includes(output.substr(0, 2))) {
+                    output += "（ の～ん ）";
                 }
 
-                return results;
+                results.push(output);
             }
 
-            function generateAndPostTweet() {
-                var results = RunNonCode();
+            var tweetURL = "https://twitter.com/intent/tweet?text=";
+            var tweetText = results.join('\n');
 
+            window.open(tweetURL + encodeURIComponent(tweetText + '\n\n' + '#のんのんチャレンジ' + '\n' + "https://chisenon.github.io/NonNoneChallenge/"), "_blank");
+        }
 
-                var tweetURL = "https://twitter.com/intent/tweet?text=";
+        function getRandomElements(arr, num) {
+            var shuffled = arr.slice();
+            var i = arr.length;
+            var min = i - num;
+            var temp;
+            var index;
 
-                var tweetText = results.join('\n');
-
-                window.open(tweetURL + encodeURIComponent(tweetText + '\n\n' + "https://chisenon.github.io/NonNoneChallenge/"), "_blank");
+            while (i-- > min) {
+                index = Math.floor((i + 1) * Math.random());
+                temp = shuffled[index];
+                shuffled[index] = shuffled[i];
+                shuffled[i] = temp;
             }
 
-            function getRandomElements(arr, num) {
-                var shuffled = arr.slice();
-                var i = arr.length;
-                var min = i - num;
-                var temp;
-                var index;
-
-                while (i-- > min) {
-                    index = Math.floor((i + 1) * Math.random());
-                    temp = shuffled[index];
-                    shuffled[index] = shuffled[i];
-                    shuffled[i] = temp;
-                }
-
-                return shuffled.slice(min);
-            }
-
-            generateAndPostTweet();
+            return shuffled.slice(min);
         }
     </script>
-
 </body>
-
 
 </html>
